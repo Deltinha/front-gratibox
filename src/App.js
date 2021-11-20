@@ -7,6 +7,7 @@ import Theme from './styles/Theme';
 import useLocalStorage from './hooks/useLocalStorage';
 import UserContext from './contexts/userContext';
 import Register from './screens/Register';
+import Details from './screens/Details';
 
 export default function App() {
   const [user, setUser] = useLocalStorage('@gratibox-user', {});
@@ -18,6 +19,7 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/details" element={<Details />} />
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>

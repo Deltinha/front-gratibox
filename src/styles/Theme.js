@@ -9,6 +9,7 @@ const Theme = createGlobalStyle`
       --color-3: #e5cdb3;
       --color-4: #ffffff;
       --color-5: #8C97EA;
+      --color-6: #4D65A8;
     }
     body {
       font-family: 'Roboto', sans-serif;
@@ -22,6 +23,10 @@ const Theme = createGlobalStyle`
     h2 {
       font-size: 26px;
       font-weight: 700;
+    }
+    h3 {
+      font-size: 18px;
+      font-weight: 300;
     }
 `;
 
