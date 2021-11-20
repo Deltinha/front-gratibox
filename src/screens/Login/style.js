@@ -29,7 +29,7 @@ export const Button = styled.input`
   margin-top: 136px;
   width: 237px;
   height: 56px;
-  background-color: var(--color-5);
+  background-color: var(--color5);
   border: none;
   border-radius: 10px;
   color: white;
