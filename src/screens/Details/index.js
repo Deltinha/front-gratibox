@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
+import Swal from 'sweetalert2';
 import UserContext from '../../contexts/userContext';
 import * as S from './style';
 import image from '../../assets/image03.jpg';
@@ -8,7 +9,7 @@ import { getSubscription } from '../../services/subscription';
 import useAuthConfig from '../../hooks/useAuth';
 
 export default function Details() {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [plan, setPlan] = useState('');
   const [subscriptionDate, setSubscriptionDate] = useState('');
   const [nextDeliveries, setNextDeliveries] = useState([]);
@@ -18,6 +19,7 @@ export default function Details() {
 
   function processSuccess(res) {
     if (res.status === 204) {
+      Swal.fire('Você não assinou nenhum plano');
       navigate('/plans');
     }
     if (res.status === 200) {
@@ -28,10 +30,18 @@ export default function Details() {
     }
   }
 
+  function processError(status) {
+    if (status === 401) {
+      Swal.fire('Houve um problema com sua sessão');
+      setUser({});
+      navigate('/login');
+    }
+  }
+
   useEffect(() => {
     getSubscription(headers)
       .then((res) => processSuccess(res))
-      .catch((err) => console.log(err.response.status));
+      .catch((err) => processError(err.response.status));
   }, []);
 
   return (
