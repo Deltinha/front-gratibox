@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Login = styled.div`
+export const Register = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,7 +26,7 @@ export const Form = styled.form`
 
 export const Button = styled.input`
   margin-bottom: 21px;
-  margin-top: 136px;
+  margin-top: 54px;
   width: 237px;
   height: 56px;
   background-color: var(--color-5);

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -8,8 +7,8 @@ import { postLogin } from '../../services/user';
 import * as S from './style';
 
 export default function Login() {
-  const [email, setEmail] = useState('delta@delta.com');
-  const [password, setPassword] = useState('deltinha');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -60,8 +59,8 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <S.Button type="submit" value="Login" />
-        <Link to="/register">Ainda não sou grato</Link>
+        <S.Button type="submit" value="Entrar" />
+        <Link to="/register">Ainda não sou grato(a).</Link>
       </S.Form>
     </S.Login>
   );
