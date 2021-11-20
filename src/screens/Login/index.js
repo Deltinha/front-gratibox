@@ -14,7 +14,7 @@ export default function Login() {
 
   useEffect(() => {
     if (user.token) {
-      navigate('/details');
+      navigate('/plans');
     }
   }, []);
 
@@ -36,7 +36,7 @@ export default function Login() {
     postLogin(body)
       .then((res) => {
         setUser(res.data);
-        navigate('/details');
+        navigate('/plans');
       })
       .catch((err) => processError(err.response.status));
   }
