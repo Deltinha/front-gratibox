@@ -12,9 +12,9 @@ export default function App() {
   const [user, setUser] = useLocalStorage('@gratibox-user', {});
   return (
     <UserContext.Provider value={{ user, setUser }}>
+      <GlobalStyle />
+      <Theme />
       <BrowserRouter>
-        <GlobalStyle />
-        <Theme />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
