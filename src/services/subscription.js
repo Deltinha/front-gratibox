@@ -20,3 +20,7 @@ export function getProducts() {
 export function getStates() {
   return axios.get(`${BASE_URL}/states`);
 }
+
+export function postSubscription({ headers, body }) {
+  return axios.post(`${BASE_URL}/subscription`, body, headers);
+}

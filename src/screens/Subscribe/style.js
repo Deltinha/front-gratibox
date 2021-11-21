@@ -25,6 +25,35 @@ export const Form = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  input[type='text'] {
+    background-color: var(--color7);
+    border: none;
+    height: 44px;
+    width: 290px;
+  }
+  .state-select__value-container {
+    height: 44px;
+  }
+  .state-select__control {
+    background-color: var(--color7);
+  }
+  .state-select-container {
+    box-sizing: border-box;
+    width: 108px;
+    * {
+      color: var(--color6);
+    }
+  }
+`;
+
+export const CitySelection = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  > input[type='text'] {
+    width: 168px;
+  }
 `;
 
 export const ProductsSelection = styled.div`
@@ -50,7 +79,9 @@ export const Product = styled.div`
 `;
 
 export const BlueButton = styled.button`
-  background-color: var(--color5);
+  background-color: ${({ disabled }) =>
+    disabled ? 'var(--color2)' : 'var(--color5)'};
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   font-size: 24px;
   font-weight: 500;
   width: 202px;

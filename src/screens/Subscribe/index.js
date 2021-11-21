@@ -2,14 +2,22 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from 'react';
 import Select from 'react-select';
+import { useNavigate } from 'react-router-dom';
 import GreetingText from '../../components/GreetingText';
 import UserContext from '../../contexts/userContext';
 import * as S from './style';
 import image from '../../assets/image03.jpg';
-import { getPlans, getProducts, getStates } from '../../services/subscription';
+import {
+  getPlans,
+  getProducts,
+  getStates,
+  postSubscription,
+} from '../../services/subscription';
+import useAuthConfig from '../../hooks/useAuth';
 
 export default function Subscribe() {
   const { user } = useContext(UserContext);
+  const headers = useAuthConfig();
 
   const [isStep1, setIsStep1] = useState(true);
   const [isStep2, setIsStep2] = useState(false);
@@ -18,11 +26,16 @@ export default function Subscribe() {
   const [products, setProducts] = useState([]);
   const [planOptions, setPlanOptions] = useState([]);
   const [daysOptions, setDaysOptions] = useState([]);
+  const [statesOptions, setStatesOptions] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState({ id: 0, name: '' });
   const [selectedDay, setSelectedDay] = useState(0);
-  const [nextEnabled, setNextEnabled] = useState(false);
-
-  const selectedOptions = {};
+  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [nextDisabled, setNextDisabled] = useState(true);
+  const [recipient, setRecipient] = useState('');
+  const [address, setAddress] = useState('');
+  const [cep, setCep] = useState('');
+  const [city, setCity] = useState('');
+  const [stateId, setStateId] = useState(0);
   const weekDays = [
     'domingo',
     'segunda',
@@ -32,10 +45,19 @@ export default function Subscribe() {
     'sexta',
     'sábado',
   ];
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPlans().then((res) => setPlans(res.data));
-    getStates().then((res) => setStates(res.data));
+    getStates().then((res) => {
+      setStates(res.data);
+      setStatesOptions(
+        res.data.map((state) => ({
+          value: state.id,
+          label: state.name,
+        }))
+      );
+    });
     getProducts().then((res) => setProducts(res.data));
   }, []);
 
@@ -71,6 +93,51 @@ export default function Subscribe() {
     return false;
   }, [selectedPlan]);
 
+  useEffect(() => {
+    if (
+      selectedDay !== 0 &&
+      selectedPlan.name !== '' &&
+      selectedProducts.length > 0
+    ) {
+      setNextDisabled(false);
+    } else {
+      setNextDisabled(true);
+    }
+  }, [selectedDay, selectedPlan, selectedProducts]);
+
+  function selectProduct(productId) {
+    const productIndex = selectedProducts.findIndex(
+      (product) => productId === product
+    );
+
+    if (productIndex === -1) {
+      setSelectedProducts([...selectedProducts, productId]);
+    } else {
+      setSelectedProducts(
+        selectedProducts.filter((product) => product !== productId)
+      );
+    }
+  }
+
+  function makeSubscription() {
+    const body = {
+      deliveryDayId: selectedDay,
+      address,
+      recipient,
+      cep,
+      city,
+      stateId,
+      productsIds: selectedProducts,
+    };
+
+    postSubscription({ headers, body })
+      .then((res) => {
+        navigate('/details');
+        console.log(res.status);
+      })
+      .catch((err) => console.log(err.response.status));
+  }
+
   return (
     <S.Subscribe>
       <GreetingText username={user.name}>
@@ -101,6 +168,7 @@ export default function Subscribe() {
                   {products.map((product) => (
                     <S.Product>
                       <input
+                        onChange={() => selectProduct(product.id)}
                         name="products"
                         type="checkbox"
                         id={product.name}
@@ -111,7 +179,56 @@ export default function Subscribe() {
                 </div>
               </S.ProductsSelection>
             </S.Form>
-            <S.BlueButton type="button">Próximo</S.BlueButton>
+            <S.BlueButton
+              disabled={nextDisabled}
+              onClick={() => {
+                setIsStep1(false);
+                setIsStep2(true);
+              }}
+              type="button"
+            >
+              Próximo
+            </S.BlueButton>
+          </>
+        )}
+        {isStep2 && (
+          <>
+            <S.Form>
+              <input
+                type="text"
+                placeholder="Nome completo"
+                onChange={(e) => setRecipient(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Endereço de Entrega"
+                onChange={(e) => setAddress(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="CEP"
+                onChange={(e) => setCep(e.target.value)}
+              />
+              <S.CitySelection>
+                <input
+                  type="text"
+                  placeholder="Cidade"
+                  onChange={(e) => setCity(e.target.value)}
+                />
+                <Select
+                  onChange={(e) => setStateId(e.value)}
+                  placeholder="Estado"
+                  className="state-select-container"
+                  classNamePrefix="state-select"
+                  isSearchable
+                  maxMenuHeight="100px"
+                  options={statesOptions}
+                />
+              </S.CitySelection>
+            </S.Form>
+            <S.BlueButton onClick={() => makeSubscription()} type="button">
+              Finalizar
+            </S.BlueButton>
           </>
         )}
       </div>
