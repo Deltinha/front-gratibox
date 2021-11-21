@@ -1,10 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-    /* http://meyerweb.com/eric/tools/css/reset/ 
-    v2.0 | 20110126
-    License: none (public domain)
-    */
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
     a, abbr, acronym, address, big, cite, code,
@@ -25,13 +21,9 @@ const GlobalStyle = createGlobalStyle`
     font: inherit;
     vertical-align: baseline;
     }
-    /* HTML5 display-role reset for older browsers */
     article, aside, details, figcaption, figure, 
     footer, header, hgroup, menu, nav, section {
     display: block;
-    }
-    body {
-    line-height: 1;
     }
     ol, ul {
     list-style: none;
@@ -56,11 +48,37 @@ const GlobalStyle = createGlobalStyle`
         text-decoration: none;
         color: inherit;
     }
-    html {
-        background: #6D7CE4;
+    body {
+    line-height: 1;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    }
+    :root {
+      --color0: #6d7ce4;
+      --color1: #e63c80;
+      --color2: #e0d1ed;
+      --color3: #e5cdb3;
+      --color4: #ffffff;
+      --color5: #8C97EA;
+      --color6: #4D65A8;
     }
     #root > div{
         height: 100vh;
+    }
+    html {
+        background: var(--color0);
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+    }
+    h2 {
+      font-size: 26px;
+      font-weight: 700;
+    }
+    h3 {
+      font-size: 18px;
+      font-weight: 300;
     }
 `;
 export default GlobalStyle;

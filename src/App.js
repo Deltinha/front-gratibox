@@ -3,7 +3,6 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './screens/Login';
 import GlobalStyle from './styles/GloblalStyle';
-import Theme from './styles/Theme';
 import useLocalStorage from './hooks/useLocalStorage';
 import UserContext from './contexts/userContext';
 import Register from './screens/Register';
@@ -15,7 +14,6 @@ export default function App() {
     <UserContext.Provider value={{ user, setUser }}>
       <BrowserRouter>
         <GlobalStyle />
-        <Theme />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
