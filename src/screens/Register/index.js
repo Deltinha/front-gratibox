@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import TextInput from '../../components/TextInput';
+import UserContext from '../../contexts/userContext';
 import { postRegister } from '../../services/user';
 import * as S from './style';
 
 export default function Register() {
+  const { setUser } = useContext(UserContext);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -38,6 +40,7 @@ export default function Register() {
 
     postRegister(body)
       .then(() => {
+        setUser({});
         navigate('/login');
       })
       .catch((res) => {
