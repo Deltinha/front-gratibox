@@ -19,7 +19,6 @@ export default function Details() {
 
   function processSuccess(res) {
     if (res.status === 204) {
-      Swal.fire('Você não assinou nenhum plano');
       navigate('/plans');
     }
     if (res.status === 200) {
