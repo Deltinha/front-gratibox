@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from 'react';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
 import GreetingText from '../../components/GreetingText';
 import UserContext from '../../contexts/userContext';
 import * as S from './style';
@@ -16,13 +17,12 @@ import {
 import useAuthConfig from '../../hooks/useAuth';
 
 export default function Subscribe() {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const headers = useAuthConfig();
 
   const [isStep1, setIsStep1] = useState(true);
   const [isStep2, setIsStep2] = useState(false);
   const [plans, setPlans] = useState([]);
-  const [states, setStates] = useState([]);
   const [products, setProducts] = useState([]);
   const [planOptions, setPlanOptions] = useState([]);
   const [daysOptions, setDaysOptions] = useState([]);
@@ -50,7 +50,6 @@ export default function Subscribe() {
   useEffect(() => {
     getPlans().then((res) => setPlans(res.data));
     getStates().then((res) => {
-      setStates(res.data);
       setStatesOptions(
         res.data.map((state) => ({
           value: state.id,
@@ -105,6 +104,20 @@ export default function Subscribe() {
     }
   }, [selectedDay, selectedPlan, selectedProducts]);
 
+  useEffect(() => {
+    if (
+      recipient.length !== 0 &&
+      address.length !== 0 &&
+      cep.length !== 0 &&
+      stateId !== 0 &&
+      city.length !== 0
+    ) {
+      setNextDisabled(false);
+    } else {
+      setNextDisabled(true);
+    }
+  }, [recipient, address, cep, stateId, city]);
+
   function selectProduct(productId) {
     const productIndex = selectedProducts.findIndex(
       (product) => productId === product
@@ -116,6 +129,21 @@ export default function Subscribe() {
       setSelectedProducts(
         selectedProducts.filter((product) => product !== productId)
       );
+    }
+  }
+
+  function processError(status) {
+    if (status === 403) {
+      Swal.fire('Você já está inscrito em um plano');
+      navigate('/details');
+    }
+    if (status === 401) {
+      Swal.fire('Houve um problema com sua sessão');
+      setUser({});
+      navigate('/login');
+    }
+    if (status === 400) {
+      Swal.fire('Campos preenchidos incorretamente');
     }
   }
 
@@ -131,11 +159,10 @@ export default function Subscribe() {
     };
 
     postSubscription({ headers, body })
-      .then((res) => {
+      .then(() => {
         navigate('/details');
-        console.log(res.status);
       })
-      .catch((err) => console.log(err.response.status));
+      .catch((err) => processError(err.response.status));
   }
 
   return (
@@ -184,6 +211,7 @@ export default function Subscribe() {
               onClick={() => {
                 setIsStep1(false);
                 setIsStep2(true);
+                setNextDisabled(true);
               }}
               type="button"
             >
@@ -226,7 +254,11 @@ export default function Subscribe() {
                 />
               </S.CitySelection>
             </S.Form>
-            <S.BlueButton onClick={() => makeSubscription()} type="button">
+            <S.BlueButton
+              disabled={nextDisabled}
+              onClick={() => makeSubscription()}
+              type="button"
+            >
               Finalizar
             </S.BlueButton>
           </>
