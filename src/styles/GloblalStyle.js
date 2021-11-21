@@ -61,6 +61,7 @@ const GlobalStyle = createGlobalStyle`
       --color4: #ffffff;
       --color5: #8C97EA;
       --color6: #4D65A8;
+      --color7: #ECE3F4
     }
     #root > div{
         height: 100vh;

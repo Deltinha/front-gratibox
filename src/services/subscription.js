@@ -8,3 +8,15 @@ const BASE_URL =
 export function getSubscription(headers) {
   return axios.get(`${BASE_URL}/user`, headers);
 }
+
+export function getPlans() {
+  return axios.get(`${BASE_URL}/plans`);
+}
+
+export function getProducts() {
+  return axios.get(`${BASE_URL}/products`);
+}
+
+export function getStates() {
+  return axios.get(`${BASE_URL}/states`);
+}

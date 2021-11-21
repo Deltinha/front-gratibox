@@ -7,6 +7,7 @@ import * as S from './style';
 import image from '../../assets/image03.jpg';
 import { getSubscription } from '../../services/subscription';
 import useAuthConfig from '../../hooks/useAuth';
+import GreetingText from '../../components/GreetingText';
 
 export default function Details() {
   const { user, setUser } = useContext(UserContext);
@@ -45,8 +46,9 @@ export default function Details() {
 
   return (
     <S.Details>
-      <h2>Bom de ver por aqui, {user.name}</h2>
-      <h3>“Agradecer é a arte de atrair coisas boas”</h3>
+      <GreetingText username={user.name}>
+        “Agradecer é a arte de atrair coisas boas”
+      </GreetingText>
       <div>
         <img src={image} alt="" />
         <S.PlanDescription>
