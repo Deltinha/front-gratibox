@@ -9,6 +9,7 @@ import * as S from './style';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -17,6 +18,15 @@ export default function Login() {
       navigate('/details');
     }
   }, []);
+
+  useEffect(()=>{
+    if(email === '' || password === ''){
+      setSubmitDisabled(true);
+    }
+    else {
+      setSubmitDisabled(false);
+    }
+  },[email, password]);
 
   function processError(status) {
     if (status === 403 || status === 400) {
@@ -59,7 +69,7 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <S.Button type="submit" value="Entrar" />
+        <S.Button disabled={submitDisabled} type="submit" value="Entrar" />
         <Link to="/register">Ainda não sou grato(a).</Link>
       </S.Form>
     </S.Login>

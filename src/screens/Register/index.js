@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import TextInput from '../../components/TextInput';
@@ -13,7 +13,17 @@ export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordTwo, setPasswordTwo] = useState('');
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(name.length === '' || email === '' || password === '' || passwordTwo === ''){
+      setSubmitDisabled(true);
+    }
+    else {
+      setSubmitDisabled(false);
+    }
+  },[name, email, password, passwordTwo]);
 
   function processError(status) {
     if (status === 409) {
@@ -84,7 +94,7 @@ export default function Register() {
           onChange={(e) => setPasswordTwo(e.target.value)}
           required
         />
-        <S.Button type="submit" value="Cadastrar" />
+        <S.Button disabled={submitDisabled} type="submit" value="Cadastrar" />
         <Link to="/login">Já sou grato(a)!</Link>
       </S.Form>
     </S.Register>
