@@ -25,7 +25,7 @@ Features include:
 
 ## Running locally
 
-1. Clone the front-end repo within /gratibox folder
+1. Clone the front-end repo
 
 ```sh
 git clone https://github.com/Deltinha/front-gratibox.git
