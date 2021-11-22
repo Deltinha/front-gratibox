@@ -25,6 +25,7 @@ export const Form = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 
   input[type='text'] {
     background-color: var(--color7);
@@ -32,15 +33,22 @@ export const Form = styled.div`
     height: 44px;
     width: 290px;
   }
-  .state-select__value-container {
+  .state-select__value-container,
+  .plan-select__value-container {
     height: 44px;
   }
-  .state-select__control {
+  .state-select__control,
+  .plan-select__control {
     background-color: var(--color7);
   }
   .state-select-container {
     box-sizing: border-box;
     width: 108px;
+    * {
+      color: var(--color6);
+    }
+  }
+  .plan-select-container {
     * {
       color: var(--color6);
     }

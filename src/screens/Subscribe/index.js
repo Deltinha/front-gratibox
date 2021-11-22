@@ -176,6 +176,8 @@ export default function Subscribe() {
           <>
             <S.Form>
               <Select
+                className="plan-select-container"
+                classNamePrefix="plan-select"
                 hideSelectedOptions
                 onChange={(e) => {
                   setSelectedPlan({ id: e.value, name: e.label });
@@ -183,6 +185,8 @@ export default function Subscribe() {
                 options={planOptions}
               />
               <Select
+                className="plan-select-container"
+                classNamePrefix="plan-select"
                 hideSelectedOptions
                 onChange={(e) => {
                   setSelectedDay(e.value);
@@ -244,6 +248,7 @@ export default function Subscribe() {
                   onChange={(e) => setCity(e.target.value)}
                 />
                 <Select
+                  hideSelectedOptions
                   onChange={(e) => setStateId(e.value)}
                   placeholder="Estado"
                   className="state-select-container"
