@@ -1,4 +1,9 @@
-# About Gratibox
+# Gratibox
+
+<br/>
+<img style="height: 450px;" src="./grati-animation.gif" />
+
+## About
 
 GratiBox is a service that delivers you boxes of meditation goodies.
 
@@ -10,9 +15,14 @@ Features include:
 - Subscribe to a plan
 - See your active plan
 
-## Running locally
+## Technologies
 
-After cloning, in the project directory, you can run:
+- React
+- React Router Dom
+- Axios
+- styled-components
+
+## Running locally
 
 1. Create a root project folder named campy
 
