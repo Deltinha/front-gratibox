@@ -24,7 +24,7 @@ Features include:
 
 ## Running locally
 
-1. Create a root project folder named campy
+1. Create a root project folder named gratibox
 
 ```sh
 mkdir gratibox
