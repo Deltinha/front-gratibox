@@ -6,4 +6,7 @@ export const TextInput = styled.input`
   border-radius: 10px;
   border: 1px solid #604848;
   background-color: white;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color6);
 `;

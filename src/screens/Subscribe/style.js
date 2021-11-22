@@ -31,7 +31,11 @@ export const Form = styled.div`
     background-color: var(--color7);
     border: none;
     height: 44px;
-    width: 290px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color6);
   }
   .state-select__value-container,
   .plan-select__value-container {
@@ -60,7 +64,7 @@ export const CitySelection = styled.div`
   justify-content: space-between;
 
   > input[type='text'] {
-    width: 168px;
+    width: 200px;
   }
 `;
 
