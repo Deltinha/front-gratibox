@@ -47,6 +47,17 @@ export default function Subscribe() {
   ];
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    if (JSON.stringify(user) === JSON.stringify({})){
+      Swal.fire('Você não está logado');
+      navigate('/login')
+    }
+
+    if (user.isSubscribed === true){
+      navigate('/details')
+    }
+  },[])
+
   useEffect(() => {
     getPlans().then((res) => setPlans(res.data));
     getStates().then((res) => {
@@ -160,6 +171,7 @@ export default function Subscribe() {
 
     postSubscription({ headers, body })
       .then(() => {
+        setUser(Object.assign(user, {isSubscribed: true}));
         navigate('/details');
       })
       .catch((err) => processError(err.response.status));
