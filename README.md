@@ -25,25 +25,19 @@ Features include:
 
 ## Running locally
 
-1. Create a root project folder named gratibox
-
-```sh
-mkdir gratibox
-```
-
-2. Clone the front-end repo within /gratibox folder
+1. Clone the front-end repo within /gratibox folder
 
 ```sh
 git clone https://github.com/Deltinha/front-gratibox.git
 ```
 
-3. Install NPM packages for the front-end repo
+2. Install NPM packages for the front-end repo
 
 ```sh
 npm install
 ```
 
-5. Run the app in development mode
+3. Run the app in development mode
 
 ```sh
 npm start
