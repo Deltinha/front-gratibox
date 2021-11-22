@@ -9,6 +9,7 @@ import Register from './screens/Register';
 import Details from './screens/Details';
 import Subscribe from './screens/Subscribe';
 import Plans from './screens/Plans';
+import Landing from './screens/Landing';
 
 export default function App() {
   const [user, setUser] = useLocalStorage('@gratibox-user', {});
@@ -18,6 +19,7 @@ export default function App() {
       <BrowserRouter>
         <GlobalStyle />
         <Routes>
+          <Route path="/landing" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/plans" element={<Plans />} />
