@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as S from './style';
 import image from '../../assets/image05.jpg';
 
 export default function Landing() {
+  const navigate = useNavigate();
   return (
     <S.Landing>
       <h1>Bem vindo ao GratiBox</h1>
@@ -13,7 +14,9 @@ export default function Landing() {
       </span>
       <img src={image} alt="" />
       <div>
-        <button type="button">Quero começar</button>
+        <button onClick={() => navigate('/register')} type="button">
+          Quero começar
+        </button>
         <Link to="/login">Já sou grato</Link>
       </div>
     </S.Landing>
