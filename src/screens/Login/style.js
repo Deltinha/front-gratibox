@@ -21,16 +21,17 @@ export const Form = styled.form`
 `;
 
 export const Button = styled.input`
+  background-color: ${({ disabled }) =>
+    disabled ? 'var(--color2)' : 'var(--color5)'};
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   margin-bottom: 21px;
   margin-top: 136px;
   width: 237px;
   height: 56px;
-  background-color: var(--color5);
   border: none;
   border-radius: 10px;
   color: white;
   font-size: 36px;
   font-weight: 700;
   text-align: center;
-  cursor: pointer;
 `;
