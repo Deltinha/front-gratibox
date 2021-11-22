@@ -46,7 +46,10 @@ export default function Login() {
     postLogin(body)
       .then((res) => {
         setUser(res.data);
-        navigate('/details');
+        if (res.data.isSubscribed) {
+          navigate('/details');
+        }
+        navigate('/plans');
       })
       .catch((err) => {
         setSubmitDisabled(false);
