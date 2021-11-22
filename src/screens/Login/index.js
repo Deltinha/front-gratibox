@@ -19,14 +19,13 @@ export default function Login() {
     }
   }, []);
 
-  useEffect(()=>{
-    if(email === '' || password === ''){
+  useEffect(() => {
+    if (email === '' || password === '') {
       setSubmitDisabled(true);
-    }
-    else {
+    } else {
       setSubmitDisabled(false);
     }
-  },[email, password]);
+  }, [email, password]);
 
   function processError(status) {
     if (status === 403 || status === 400) {
@@ -43,12 +42,16 @@ export default function Login() {
       password,
     };
 
+    setSubmitDisabled(true);
     postLogin(body)
       .then((res) => {
         setUser(res.data);
         navigate('/details');
       })
-      .catch((err) => processError(err.response.status));
+      .catch((err) => {
+        setSubmitDisabled(false);
+        processError(err.response?.status);
+      });
   }
 
   return (

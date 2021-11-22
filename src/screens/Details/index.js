@@ -41,7 +41,7 @@ export default function Details() {
   useEffect(() => {
     getSubscription(headers)
       .then((res) => processSuccess(res))
-      .catch((err) => processError(err.response.status));
+      .catch((err) => processError(err.response?.status));
   }, []);
 
   return (

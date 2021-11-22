@@ -47,16 +47,16 @@ export default function Subscribe() {
   ];
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    if (JSON.stringify(user) === JSON.stringify({})){
+  useEffect(() => {
+    if (JSON.stringify(user) === JSON.stringify({})) {
       Swal.fire('Você não está logado');
-      navigate('/login')
+      navigate('/login');
     }
 
-    if (user.isSubscribed === true){
-      navigate('/details')
+    if (user.isSubscribed === true) {
+      navigate('/details');
     }
-  },[])
+  }, []);
 
   useEffect(() => {
     getPlans().then((res) => setPlans(res.data));
@@ -171,10 +171,12 @@ export default function Subscribe() {
 
     postSubscription({ headers, body })
       .then(() => {
-        setUser(Object.assign(user, {isSubscribed: true}));
+        setUser(Object.assign(user, { isSubscribed: true }));
         navigate('/details');
       })
-      .catch((err) => processError(err.response.status));
+      .catch((err) => {
+        processError(err.response?.status);
+      });
   }
 
   return (

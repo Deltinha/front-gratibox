@@ -16,14 +16,18 @@ export default function Register() {
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(name.length === '' || email === '' || password === '' || passwordTwo === ''){
+  useEffect(() => {
+    if (
+      name.length === '' ||
+      email === '' ||
+      password === '' ||
+      passwordTwo === ''
+    ) {
       setSubmitDisabled(true);
-    }
-    else {
+    } else {
       setSubmitDisabled(false);
     }
-  },[name, email, password, passwordTwo]);
+  }, [name, email, password, passwordTwo]);
 
   function processError(status) {
     if (status === 409) {
@@ -48,13 +52,16 @@ export default function Register() {
       password,
     };
 
+    setSubmitDisabled(true);
+
     postRegister(body)
       .then(() => {
         setUser({});
         navigate('/login');
       })
       .catch((res) => {
-        processError(res.response.status);
+        setSubmitDisabled(false);
+        processError(res.response?.status);
       });
   }
 
