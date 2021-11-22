@@ -22,6 +22,12 @@ Features include:
 - React Router Dom
 - Axios
 - styled-components
+- sweetalert2
+- cypress
+- eslint
+- prettier
+- faker
+- husky
 
 ## Running locally
 
