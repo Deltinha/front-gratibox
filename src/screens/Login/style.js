@@ -12,6 +12,7 @@ export const Form = styled.form`
   align-items: center;
   margin-bottom: 32px;
   gap: 8px;
+  
 
   > a {
     font-size: 18px;

@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import GreetingText from '../../components/GreetingText';
 import UserContext from '../../contexts/userContext';
 import * as S from './style';
@@ -9,9 +10,22 @@ import monthlyImage from '../../assets/image02.jpg';
 export default function Plans() {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
+
   function goToSubscribe() {
     navigate('/subscribe');
   }
+
+  useEffect(()=>{
+    if (JSON.stringify(user) === JSON.stringify({})){
+      Swal.fire('Você não está logado');
+      navigate('/login')
+    }
+
+    if (user.isSubscribed === true){
+      navigate('/details')
+    }
+  },[])
+
   return (
     <S.Plans>
       <GreetingText username={user.name}>
